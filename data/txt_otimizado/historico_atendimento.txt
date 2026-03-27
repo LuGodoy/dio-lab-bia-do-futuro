@@ -1,0 +1,1 @@
+[{"data":"2025-09-15","canal":"chat","tema":"CDB","status":"S"},{"data":"2025-09-22","canal":"telefone","tema":"Problema no app","status":"S"},{"data":"2025-10-01","canal":"chat","tema":"Tesouro Selic","status":"S"},{"data":"2025-10-12","canal":"chat","tema":"Metas financeiras","status":"S"},{"data":"2025-10-25","canal":"email","tema":"Atualização cadastral","status":"S"}]

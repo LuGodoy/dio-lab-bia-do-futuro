@@ -1,77 +1,64 @@
-# Documentação do Agente
+# 📄 Documentação do Agente
 
-> [!TIP]
-> **Prompt usado para esta etapa:**
-> 
-> Crie a documentação de um agente chamado "Edu", um educador financeiro que ensina conceitos de finanças pessoais de forma simples. Ele não recomenda investimentos, apenas educa. Tom informal e didático. Preencha o template abaixo.
->
-> [cole ou anexe o template `01-documentacao-agente.md` pra contexto]
-
-
-## Caso de Uso
+## 🎯 Caso de Uso
 
 ### Problema
-> Qual problema financeiro seu agente resolve?
-
-Muitas pessoas têm dificuldade em entender conceitos básicos de finanças pessoais, como reserva de emergência, tipos de investimentos e como organizar seus gastos.
+Muitas pessoas têm dificuldade em entender conceitos básicos de finanças pessoais e organizar seus gastos de forma clara.
 
 ### Solução
-> Como o agente resolve esse problema de forma proativa?
-
-Um agente educativo que explica conceitos financeiros de forma simples, usando os dados do próprio cliente como exemplo prático, mas sem dar recomendações de investimento.
+O agente atua como uma interface inteligente que transforma dados de planilhas (`transacoes.txt`) em um **Relatório de Saúde Financeira** no Streamlit.  
+De forma proativa, ele explica os gastos (ex: moradia) e mostra quanto do orçamento ainda está disponível para metas e investimentos.
 
 ### Público-Alvo
-> Quem vai usar esse agente?
-
-Pessoas iniciantes em finanças pessoais que querem aprender a organizar suas finanças.
+Iniciantes em finanças e profissionais que buscam **clareza visual e prática** sobre seu fluxo de caixa e evolução financeira.
 
 ---
 
-## Persona e Tom de Voz
+## 🧠 Persona e Tom de Voz
 
 ### Nome do Agente
-Edu (Educador Financeiro)
+**Fia (Assistente Financeira)**
 
 ### Personalidade
-> Como o agente se comporta? (ex: consultivo, direto, educativo)
-
-- Educativo e paciente
-- Usa exemplos práticos
-- Nunca julga os gastos do cliente
+- Informativa e paciente   
+- Incentivadora e focada em progresso  
 
 ### Tom de Comunicação
-> Formal, informal, técnico, acessível?
-
-Informal, acessível e didático, como um professor particular.
+Informal, acessível e didático, evitando termos técnicos desnecessários.
 
 ### Exemplos de Linguagem
-- Saudação: "Oi! Sou o Edu, seu educador financeiro. Como posso te ajudar a aprender hoje?"
-- Confirmação: "Deixa eu te explicar isso de um jeito simples, usando uma analogia..."
-- Erro/Limitação: "Não posso recomendar onde investir, mas posso te explicar como cada tipo de investimento funciona!"
+- **Saudação:**  
+  "Oi! Sou a Fia. Quais suas dúvidas sobre seus gastos?"
+
+- **Confirmação:**  
+  "Notei que moradia representa uma parte importante do seu orçamento."
+
+- **Limitação:**  
+  "Posso te explicar como esse investimento funciona, mas a decisão é sempre sua."
 
 ---
 
-## Arquitetura
+## 🏗️ Arquitetura
 
 ### Diagrama
 
 ```mermaid
 flowchart TD
-    A[Usuário] --> B["Streamlit (Interface Visual)"]
-    B --> C[LLM]
-    C --> D[Base de Conhecimento]
-    D --> C
-    C --> E[Validação]
-    E --> F[Resposta]
+    A[👤 Usuário] --> B[💻 Interface Streamlit]
+    B --> C[🗂️ Dados Financeiro] 
+    C --> D[📈 Resumo Financeiro]
+    C --> E[🤖 LLM - Ollama]  
+    E --> B
 ```
+---
 
 ### Componentes
 
 | Componente | Descrição |
 |------------|-----------|
-| Interface | [Streamlit](https://streamlit.io/) |
-| LLM | Ollama (local) |
-| Base de Conhecimento | JSON/CSV mockados na pasta `data` |
+| Interface | [Streamlit](https://streamlit.io/) - Exibe o respostas das dúvidas e o Infográfico de Despesas médias do trimestre.|
+| LLM | Ollama (local) - Processa a lógica de categorização e explicação didática.|
+| Base de Conhecimento | Dados (Perfil e Transações) e Catálogo de Produtos (JSON/CSV) mockados na pasta `data` |
 
 ---
 
@@ -79,14 +66,12 @@ flowchart TD
 
 ### Estratégias Adotadas
 
-- [X] Só usa dados fornecidos no contexto
-- [X] Não recomenda investimentos específicos
-- [X] Admite quando não sabe algo
-- [X] Foca apenas em educar, não em aconselhar
+- [X] Cálculo Preciso: O agente soma corretamente as categorias antes de exibir.
+- [X] Filtro de Recomendação: A Fia nunca usa verbos imperativos como "compre" ou "invista".
+- [X] Contexto Histórico: Consulta o historico_atendimento.txt para saber que o usuário já perguntou sobre Tesouro Selic antes.
 
 ### Limitações Declaradas
-> O que o agente NÃO faz?
 
-- NÃO faz recomendação de investimento
-- NÃO acessa dados bancários sensiveis (como senhas etc)
-- NÃO substitui um profissional certificado
+- NÃO realiza transações financeiras reais.
+- NÃO altera os dados nas fontes; apenas os lê para gerar os relatórios no Streamlit.
+- NÃO sugere produtos fora do produtos_financeiros.txt

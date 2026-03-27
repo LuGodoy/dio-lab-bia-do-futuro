@@ -1,15 +1,8 @@
 # Base de Conhecimento
 
-> [!TIP]
-> **Prompt usado para esta etapa:**
-> 
-> Organize a base de conhecimento do agente "Edu" usando os 4 arquivos da pasta `data/` (em anexo). Explique pra que serve cada arquivo e monte um exemplo de contexto formatado que será enviado pro LLM. Preencha o template abaixo.
->
-> [cole ou anexe o template `02-base-conhecimento.md` pra contexto]
-
 ## Dados Utilizados
 
-| Arquivo | Formato | Para que serve no Edu? |
+| Arquivo | Formato | Para que serve no Fia? |
 |---------|---------|---------------------|
 | `historico_atendimento.csv` | CSV | Contextualizar interações anteriores, ou seja, dar continuidade ao atendimento de forma mais eficiente. |
 | `perfil_investidor.json` | JSON | Personalizar as explicações sobre as dúvidas e necessidades de aprendizado do cliente. |
@@ -18,63 +11,51 @@
 
 ---
 
-## Adaptações nos Dados
-
-> Você modificou ou expandiu os dados mockados? Descreva aqui.
-
-O produto Fundo Imobiliário (FII) substituiu o Fundo Multimercado, pois pessoalmente me sinto mais confiante em usar apenas produtos financeiros que eu conheço. Assim, poderei validar as respostas do Edu de forma mais assertiva.
-
----
-
 ## Estratégia de Integração
 
 ### Como os dados são carregados?
-> Descreva como seu agente acessa a base de conhecimento.
 
-Existem duas possibilidades, injetar os dados diretamente no prompt (Ctrl + C, Ctrl + V) ou carregar os arquivos via código, como no exemplo abaixo:
-
-```python
-import pandas as pd
-import json
-
-perfil = json.load(open('./data/perfil_investidor.json'))
-transacoes = pd.read_csv('./data/transacoes.csv')
-historico = pd.read_csv('./data/historico_atendimento.csv')
-produtos = json.load(open('./data/produtos_financeiros.json'))
-```
+Os dados foram tranformados em texto e otimizados para economizar tokens.<br>
+[Aqui o script de transformação](src/utils/transform_data.py)
 
 ### Como os dados são usados no prompt?
-> Os dados vão no system prompt? São consultados dinamicamente?
 
-Para simplificar, podemos simplesmente "injetar" os dados em nosso prompt, agarntindo que o Agente tenha o melhor contexto possível. Lembrando que, em soluções mais robustas, o ideal é que essas informaçoes sejam carregadas dinamicamente para que possamos ganhar flexibilidade.
+Os dados são "adicionados" no prompt, permintindo  que o Agente tenha o melhor contexto possível. 
+
+<details>
+  <summary>Clique para visualizar os Dados do DADOS DO CLIENTE E PERFIL (data/perfil_investidor.json):</summary>
+
+  ```text
+  {
+    "nome": "João Silva",
+    "idade": 32,
+    "profissao": "Analista de Sistemas",
+    "renda_mensal": 5000.00,
+    "perfil_investidor": "moderado",
+    "objetivo_principal": "Construir reserva de emergência",
+    "patrimonio_total": 15000.00,
+    "reserva_emergencia_atual": 10000.00,
+    "aceita_risco": false,
+    "metas": [
+      {
+        "meta": "Completar reserva de emergência",
+        "valor_necessario": 15000.00,
+        "prazo": "2026-06"
+      },
+      {
+        "meta": "Entrada do apartamento",
+        "valor_necessario": 50000.00,
+        "prazo": "2027-12"
+      }
+    ]
+  }
+```
+</details>
+
+<details>
+  <summary> Clique aqui para visualizar os Dados de TRANSACOES DO CLIENTE (data/transacoes.csv):</summary>
 
 ```text
-DADOS DO CLIENTE E PERFIL (data/perfil_investidor.json):
-{
-  "nome": "João Silva",
-  "idade": 32,
-  "profissao": "Analista de Sistemas",
-  "renda_mensal": 5000.00,
-  "perfil_investidor": "moderado",
-  "objetivo_principal": "Construir reserva de emergência",
-  "patrimonio_total": 15000.00,
-  "reserva_emergencia_atual": 10000.00,
-  "aceita_risco": false,
-  "metas": [
-    {
-      "meta": "Completar reserva de emergência",
-      "valor_necessario": 15000.00,
-      "prazo": "2026-06"
-    },
-    {
-      "meta": "Entrada do apartamento",
-      "valor_necessario": 50000.00,
-      "prazo": "2027-12"
-    }
-  ]
-}
-
-TRANSACOES DO CLIENTE (data/transacoes.csv):
 data,descricao,categoria,valor,tipo
 2025-10-01,Salário,receita,5000.00,entrada
 2025-10-02,Aluguel,moradia,1200.00,saida
@@ -86,16 +67,27 @@ data,descricao,categoria,valor,tipo
 2025-10-15,Conta de Luz,moradia,180.00,saida
 2025-10-20,Academia,saude,99.00,saida
 2025-10-25,Combustível,transporte,250.00,saida
+```
+</details>
 
-HISTORICO DE ATENDIMENTO DO CLIENTE (data/historico_atendimento.csv):
+<details>
+  <summary> Clique aqui para visualizar os Dados de HISTORICO DE ATENDIMENTO DO CLIENTE (data/historico_atendimento.csv):</summary>
+
+```text
 data,canal,tema,resumo,resolvido
 2025-09-15,chat,CDB,Cliente perguntou sobre rentabilidade e prazos,sim
 2025-09-22,telefone,Problema no app,Erro ao visualizar extrato foi corrigido,sim
 2025-10-01,chat,Tesouro Selic,Cliente pediu explicação sobre o funcionamento do Tesouro Direto,sim
 2025-10-12,chat,Metas financeiras,Cliente acompanhou o progresso da reserva de emergência,sim
 2025-10-25,email,Atualização cadastral,Cliente atualizou e-mail e telefone,sim
+```
 
-PRODUTOS DISPONIVEIS PARA ENSINO (data/produtos_financeiros.json):
+</details>
+
+<details>
+  <summary>Clique para visualizar os Dados dos PRODUTOS DISPONIVEIS PARA ENSINO (data/produtos_financeiros.json):</summary>
+
+  ```text
 [
   {
     "nome": "Tesouro Selic",
@@ -139,14 +131,15 @@ PRODUTOS DISPONIVEIS PARA ENSINO (data/produtos_financeiros.json):
   }
 ]
 ```
+</details>
 
 ---
 
-## Exemplo de Contexto Montado
+### Exemplo de Contexto Montado
 
-> Mostre um exemplo de como os dados são formatados para o agente.
+O contexto abaixo é uma versão sintetizada dos dados originais da base de conhecimento. Ele mantém apenas as informações mais relevantes, com o objetivo de otimizar o uso de tokens.
 
-O exemplo de contexto montado abaixo, se baiseia nos dados originais da base de conhecimento, mas os sintetiza deixando apenas as informações mais relevantes, otimizando assim o consumo de tokens. Entretanto, vale lembrar que mais importante do que economizar tokens, é ter todas as informações relevantes disponíveis em seu contexto.
+No entanto, mais importante do que economizar tokens é garantir que todas as informações essenciais estejam presentes, permitindo respostas mais precisas e contextualizadas.
 
 ```
 DADOS DO CLIENTE:
@@ -169,4 +162,12 @@ PRODUTOS DISPONÍVEIS PARA EXPLICAR:
 - LCI/LCA (risco baixo)
 - Fundo Imobiliário - FII (risco médio)
 - Fundo de Ações (risco alto)
+
+HISTÓRICO RECENTE (Últimos 30 dias):
+- CDB: Dúvida sobre rentabilidade sanada.
+- APP: Erro de extrato corrigido.
+- Tesouro Selic: Explicação enviada.
+- Metas: Progresso da reserva de emergência consultado.
+- Cadastro: E-mail e telefone atualizados.
+
 ```

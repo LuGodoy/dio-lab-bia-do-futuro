@@ -1,0 +1,34 @@
+data,descricao,categoria,valor(R$),tipo
+2025-10-01,Salário,receita,5000.00,entrada
+2025-10-02,Aluguel,moradia,1200.00,saida
+2025-10-03,Supermercado,alimentacao,450.00,saida
+2025-10-05,Netflix,lazer,55.90,saida
+2025-10-07,Farmácia,saude,89.00,saida
+2025-10-10,Restaurante,alimentacao,120.00,saida
+2025-10-12,Uber,transporte,45.00,saida
+2025-10-15,Conta de Luz,moradia,180.00,saida
+2025-10-20,Academia,saude,99.00,saida
+2025-10-25,Combustível,transporte,250.00,saida
+
+2025-11-01,Salário,receita,5000.00,entrada
+2025-11-02,Aluguel,moradia,1200.00,saida
+2025-11-04,Supermercado,alimentacao,480.00,saida
+2025-11-06,Spotify,lazer,34.90,saida
+2025-11-08,Farmácia,saude,75.00,saida
+2025-11-11,Restaurante,alimentacao,140.00,saida
+2025-11-13,Uber,transporte,60.00,saida
+2025-11-15,Conta de Luz,moradia,200.00,saida
+2025-11-21,Academia,saude,99.00,saida
+2025-11-26,Combustível,transporte,260.00,saida
+
+2025-12-01,Salário,receita,5200.00,entrada
+2025-12-02,Aluguel,moradia,1200.00,saida
+2025-12-05,Supermercado,alimentacao,600.00,saida
+2025-12-07,Netflix,lazer,55.90,saida
+2025-12-09,Presentes,lazer,300.00,saida
+2025-12-12,Restaurante,alimentacao,180.00,saida
+2025-12-14,Uber,transporte,70.00,saida
+2025-12-15,Conta de Luz,moradia,220.00,saida
+2025-12-20,Farmácia,saude,110.00,saida
+2025-12-27,Combustível,transporte,280.00,saida
+
