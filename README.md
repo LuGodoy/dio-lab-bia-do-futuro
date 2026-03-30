@@ -1,4 +1,4 @@
-# 🎓 Fia - Educador Financeiro Inteligente
+# 🎓 Fia - Educadora Financeira Inteligente
 
 Agente de IA Generativa que ensina conceitos de finanças pessoais de forma simples e personalizada, usando os próprios dados do cliente como exemplos práticos.
 
@@ -11,7 +11,7 @@ Agente de IA Generativa que ensina conceitos de finanças pessoais de forma simp
 
 ## 💡 O Que é a Fia?
 
-a Fia  é um educador financeiro que **ensina**, não recomenda. Ele explica conceitos como reserva de emergência, tipos de investimentos e análise de gastos usando uma abordagem didática e exemplos concretos baseados no perfil do cliente.
+a Fia  é uma educadora financeira que **ensina**, não recomenda. Ela explica conceitos como reserva de emergência, tipos de investimentos e análise de gastos usando uma abordagem didática e exemplos concretos baseados no perfil do cliente.
 
 **O que a Fia faz:**
 - ✅ Explica conceitos financeiros de forma simples
@@ -57,7 +57,9 @@ flowchart TD
 │   └── 05-pitch.md                # Apresentação do projeto
 │
 └── src/
-    └── app.py                     # Aplicação Streamlit
+    └── app.py 
+    └── utils/
+        └── transform_data.py                    
 ```
 
 ## 🚀 Como Executar
@@ -123,7 +125,7 @@ Toda a documentação técnica, estratégias de prompt e casos de teste estão d
 
 <p align="center">
   Desenvolvido por <b>Luciene Godoy</b><br>
-  🏠 <b>Meu Projeto Principal:</b> <a href="https://github.com/LuGodoy/finance-agent-mcp">Visite aqui</a><br>
+  🏠 <b>Meu Projeto Principal com MCP:</b> <a href="https://github.com/LuGodoy/finance-agent-mcp">Visite aqui</a><br>
   <i>Este projeto faz parte de um desafio do Bootcamp DIO e Bradesco - GenAI & Dados</i>
 </p>
 
